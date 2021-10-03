@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Form, Button, Row, Col, Alert} from 'react-bootstrap'
 import Loader from '../Loader'
-import {login, register }from '../../actions/userActions'
+import { register }from '../../actions/userActions'
 import FormContainer from '../FormContainer'
 import {Link} from 'react-router-dom'
 
@@ -27,7 +27,7 @@ const RegisterScreen= ({location, history})=> {
     
     const submitHandler = (e)=>{
         e.preventDefault();
-        if(password != confirmPassword){
+        if(password !== confirmPassword){
             setMessage('password should match');
         }else{
             dispatch(register(name, email, password));

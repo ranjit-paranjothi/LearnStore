@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import {Form, Button, Row, Col, Alert} from 'react-bootstrap'
 import Loader from '../Loader'
 import {getUserDetails, updateUserProfile }from '../../actions/userActions'
-import {Link} from 'react-router-dom'
 
 const ProfileScreen= ({location, history})=> {
 
@@ -37,7 +36,7 @@ const ProfileScreen= ({location, history})=> {
     
     const submitHandler = (e)=>{
         e.preventDefault();
-        if(password != confirmPassword){
+        if(password !== confirmPassword){
             setMessage('password should match');
         }else{
             dispatch(updateUserProfile({id: user._id, name, email, password}));
