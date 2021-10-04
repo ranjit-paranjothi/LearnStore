@@ -12,6 +12,9 @@ import RegisterScreen from './components/screens/RegisterScreen';
 import ProfileScreen from './components/screens/ProfileScreen';
 import UserListScreen from './components/screens/UserListScreen';
 import UserEditScreen from './components/screens/UserEditScreen';
+import CourseListScreen from './components/screens/CourseListScreen';
+
+import AuthorListScreen from './components/screens/AuthorListScreen';
 
 function App() {
   return (
@@ -27,6 +30,10 @@ function App() {
 
             <Route path="/admin/userList" component={UserListScreen}/>
             <Route path="/admin/user/:id/edit" component={UserEditScreen}/>
+
+            <Route path="/admin/courseList" component={CourseListScreen}/>
+
+            <Route path="/admin/authorList" component={AuthorListScreen}/>
           </Container>
         </main>
       <Footer/>

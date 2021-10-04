@@ -5,6 +5,11 @@ const authorSchema = mongoose.Schema({
         type:String,
         require:true
     },
+    email:{
+        type:String,
+        required:true,
+        unique:true
+    },
     profileImage:{
         type:String,
         required:true

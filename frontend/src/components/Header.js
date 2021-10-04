@@ -20,26 +20,40 @@ const Header= ()=> {
                 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto navbar-right">
-                    <LinkContainer to="/my_courses">
-                        <Nav.Link>My Courses</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/all_courses">
-                        <Nav.Link>All Courses</Nav.Link>
-                    </LinkContainer>
-                    {
-
-                    (userInfo)? (<NavDropdown title={userInfo.name} id="userName">
-                        <LinkContainer to="/profile">
-                            <NavDropdown.Item>Profile</NavDropdown.Item>
+                    <Nav className="ml-auto">
+                        <LinkContainer to="/my_courses">
+                            <Nav.Link>My Courses</Nav.Link>
                         </LinkContainer>
-                        <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
-                    </NavDropdown>) : 
-                    <LinkContainer to="/login">
-                        <Nav.Link>Login</Nav.Link>
-                    </LinkContainer>
-                    }
-                </Nav>
+                        <LinkContainer to="/all_courses">
+                            <Nav.Link>All Courses</Nav.Link>
+                        </LinkContainer>
+                        {
+
+                        (userInfo)? (<NavDropdown title={userInfo.name} id="userName">
+                            <LinkContainer to="/profile">
+                                <NavDropdown.Item>Profile</NavDropdown.Item>
+                            </LinkContainer>
+                            <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                        </NavDropdown>) : 
+                        <LinkContainer to="/login">
+                            <Nav.Link>Login</Nav.Link>
+                        </LinkContainer>
+                        }
+                        {userInfo && userInfo.isAdmin &&
+                        (
+                            <NavDropdown title='Admin' id="adminTab">
+                                <LinkContainer to="/admin/userList">
+                                    <NavDropdown.Item>Users</NavDropdown.Item>
+                                </LinkContainer>
+                                <LinkContainer to="/admin/courseList">
+                                    <NavDropdown.Item>Courses</NavDropdown.Item>
+                                </LinkContainer>
+                                <LinkContainer to="/admin/authorList">
+                                    <NavDropdown.Item>Authors</NavDropdown.Item>
+                                </LinkContainer>
+                            </NavDropdown>
+                        )}
+                    </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
