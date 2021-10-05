@@ -8,7 +8,7 @@ const router = express.Router();
 //  @route  GET /api/authors
 //  @acess  private
 router.route("/")
-.get(protect, admin, getAuthors)
+.get(protect, getAuthors)
 .post(protect, admin, addAuthor)
 
 //  @acess  private

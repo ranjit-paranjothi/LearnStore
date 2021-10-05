@@ -3,26 +3,39 @@ import {LinkContainer} from 'react-router-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import {Table, Button, Alert, Row, Col} from 'react-bootstrap'
 import Loader from '../Loader'
-import { deleteCourses, listCourses }from '../../actions/courseActions'
+import { deleteCourses, listCourses, createCourse }from '../../actions/courseActions'
+import { COURSE_CREATE_RESET } from '../../constants/courseConstants'
 
 const CourseListScreen= ({ history, match})=> {
 
     const dispatch = useDispatch();
     const {loading, error, courses} = useSelector(state=> state.courseList);
     const {userInfo} = useSelector(state => state.userLogin);
+    
 
     const {loading: loadingDeleteCourse,
             success: successDeleteCourse,
             error: errorDeleteCourse} = useSelector(state=> state.courseDelete);
 
+    const {loading: loadingCreate,
+        success: successCreate,
+        error: errorCreate,
+        course: createdCourse} = useSelector(state=> state.courseCreate);
+
     useEffect(()=>{
-        if(userInfo && userInfo.isAdmin){
-            dispatch(listCourses());
-        }else{
+        dispatch({type: COURSE_CREATE_RESET});
+
+        if(!userInfo.isAdmin){
             history.push("/login");
         }
+        if(successCreate){
+            history.push(`/admin/course/${createdCourse._id}/edit`);
+            
+        }else{
+            dispatch(listCourses());
+        }
         
-    },[dispatch, history, userInfo, successDeleteCourse]);
+    },[dispatch, history, userInfo, successCreate, successDeleteCourse, createdCourse]);
 
     const deletHandler = (id)=>{
         if(window.confirm("Are you sure to delete the course??")){
@@ -32,7 +45,7 @@ const CourseListScreen= ({ history, match})=> {
     }
 
     const createCourseHandler = ()=>{
-        
+        dispatch(createCourse());
     }
     
     return (
@@ -47,9 +60,9 @@ const CourseListScreen= ({ history, match})=> {
                     </Button>
                 </Col>
             </Row>
-            {loadingDeleteCourse && <Loader/>}
-            {errorDeleteCourse && <Alert variant="danger">{errorDeleteCourse}</Alert>}
-            {loading && <Loader/> }
+            {errorDeleteCourse && <Alert variant="danger">{errorDeleteCourse}</Alert>}            
+            {errorCreate && <Alert variant="danger">{errorCreate}</Alert>}
+            {(loading || loadingCreate || loadingDeleteCourse) && <Loader/> }
             {error && <Alert variant="danger">{error}</Alert>}
             {courses ?
             <Table striped bordered hover responsive className="table-sm">

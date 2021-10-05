@@ -1,13 +1,16 @@
 import { createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import { courseDeleteReducers, courseListReducers } from './reducers/courseReducers';
+import { courseCreateReducers, courseDeleteReducers, courseDetailsReducers, courseListReducers, courseUpdateReducers } from './reducers/courseReducers';
 import { userDeleteReducers, userDetailsReducers, userListReducers, userLoginReducers, userRegisterReducers, userUpdateProfileReducers, userUpdateReducers } from './reducers/userReducers';
 import { authorListReducers } from './reducers/authorReducers';
 
 const reducers = combineReducers({
     courseList: courseListReducers,
+    courseDetails: courseDetailsReducers,
     courseDelete: courseDeleteReducers,
+    courseCreate: courseCreateReducers,
+    courseUpdate: courseUpdateReducers,
     userLogin: userLoginReducers,
     userRegister: userRegisterReducers,
     userDetails: userDetailsReducers,

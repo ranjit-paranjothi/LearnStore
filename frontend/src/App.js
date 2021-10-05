@@ -13,6 +13,7 @@ import ProfileScreen from './components/screens/ProfileScreen';
 import UserListScreen from './components/screens/UserListScreen';
 import UserEditScreen from './components/screens/UserEditScreen';
 import CourseListScreen from './components/screens/CourseListScreen';
+import CourseEditScreen from './components/screens/CourseEditScreen';
 
 import AuthorListScreen from './components/screens/AuthorListScreen';
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/admin/user/:id/edit" component={UserEditScreen}/>
 
             <Route path="/admin/courseList" component={CourseListScreen}/>
+            <Route path="/admin/course/:id/edit" component={CourseEditScreen}/>
 
             <Route path="/admin/authorList" component={AuthorListScreen}/>
           </Container>

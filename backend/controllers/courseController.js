@@ -37,7 +37,7 @@ const createCourse = asyncHandler(async(req, res)=>{
     
     const course = new Course({
         title: "Caricature Drawing",
-        author: new mongoose.Types.ObjectId("615acccc8b1926ad94242ba9"),
+        author: new mongoose.Types.ObjectId("615adce8464d773c639b7d29"),
         price: "200",
         user: req.user._id,
         image: "/images/generic-image-placeholder.png",
