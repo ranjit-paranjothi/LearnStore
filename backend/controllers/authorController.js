@@ -20,7 +20,7 @@ const getAuthorById = asyncHandler(async(req, res)=>{
 })
 
 const addAuthor = asyncHandler(async(req, res)=>{
-    const {name, email} = req.body;
+    const {name, email, profileImage} = req.body;
     
 
     const authorExists = await Author.findOne({email});
@@ -35,7 +35,7 @@ const addAuthor = asyncHandler(async(req, res)=>{
     const author = await Author.create({
         name,
         email,
-        profileImage: "/images/profile_image_placeholder.jpg"
+        profileImage
     });
 
     if(author){

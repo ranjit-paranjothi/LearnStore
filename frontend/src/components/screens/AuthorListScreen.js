@@ -3,7 +3,8 @@ import {LinkContainer} from 'react-router-bootstrap'
 import {useDispatch, useSelector} from 'react-redux'
 import {Table, Button, Alert, Row, Col} from 'react-bootstrap'
 import Loader from '../Loader'
-import { listAuthors } from '../../actions/authorActions'
+import { createAuthor, deleteAuthor, listAuthors } from '../../actions/authorActions'
+import { AUTHOR_CREATE_RESET } from '../../constants/authorConstants'
 
 const AuthorListScreen= ({ history })=> {
 
@@ -11,29 +12,41 @@ const AuthorListScreen= ({ history })=> {
     const {loading, error, authors} = useSelector(state=> state.authorList);
     const {userInfo} = useSelector(state => state.userLogin);
 
-    /* const {loading: loadingDeleteCourse,
-            success: successDeleteCourse,
-            error: errorDeleteCourse} = useSelector(state=> state.courseDelete); */
+    const {loading: loadingDeleteAuthor,
+            success: successDeleteAuthor,
+            error: errorDeleteAuthor} = useSelector(state=> state.authorDelete);
 
+    const {loading: loadingCreate,
+        success: successCreate,
+        error: errorCreate,
+        author: createdAuthor} = useSelector(state=> state.authorCreate);
     useEffect(()=>{
-        if(userInfo && userInfo.isAdmin){
-            dispatch(listAuthors());
-        }else{
+
+        dispatch({type: AUTHOR_CREATE_RESET});
+
+        if(!userInfo.isAdmin){
             history.push("/login");
         }
+        if(successCreate){
+            // history.push(`/admin/Author/${createdAuthor._id}/edit`);
+            
+        }else{
+            dispatch(listAuthors());
+        }
         
-    },[dispatch, history, userInfo]);
+    },[dispatch, history, userInfo, successCreate, successDeleteAuthor, createdAuthor]);
 
     const deletHandler = (id)=>{
-        if(window.confirm("Are you sure to delete the course??")){
-            //dispatch(deleteCourses(id));
+        if(window.confirm("Are you sure to delete the Author??")){
+            dispatch(deleteAuthor(id));
         }
         
     }
 
-    /* const createCourseHandler = ()=>{
-        
-    } */
+    const createAuthorHandler = ()=>{
+        //dispatch(createAuthor())
+        history.push("/admin/addAuthor");
+    }
     
     return (
         <>
@@ -41,10 +54,15 @@ const AuthorListScreen= ({ history })=> {
                 <Col>
                     <h1>Authors</h1>
                 </Col>
+                <Col className="text-end">
+                    <Button className="my-3" onClick={createAuthorHandler}>
+                        <i className="fas fa-plus"></i>Add Author
+                    </Button>
+                </Col>
                 
             </Row>
-            {/* {loadingDeleteCourse && <Loader/>}
-            {errorDeleteCourse && <Alert variant="danger">{errorDeleteCourse}</Alert>} */}
+            {loadingDeleteAuthor && <Loader/>}
+            {errorDeleteAuthor && <Alert variant="danger">{errorDeleteAuthor}</Alert>}
             {loading && <Loader/> }
             {error && <Alert variant="danger">{error}</Alert>}
             {authors ?

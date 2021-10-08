@@ -16,6 +16,8 @@ import CourseListScreen from './components/screens/CourseListScreen';
 import CourseEditScreen from './components/screens/CourseEditScreen';
 
 import AuthorListScreen from './components/screens/AuthorListScreen';
+import AuthorEditScreen from './components/screens/AuthorEditScreen';
+import AuthorCreateScreen from './components/screens/AuthorCreateScreen';
 
 function App() {
   return (
@@ -35,7 +37,9 @@ function App() {
             <Route path="/admin/courseList" component={CourseListScreen}/>
             <Route path="/admin/course/:id/edit" component={CourseEditScreen}/>
 
+            <Route path="/admin/addAuthor" component={AuthorCreateScreen}/>
             <Route path="/admin/authorList" component={AuthorListScreen}/>
+            <Route path="/admin/author/:id/edit" component={AuthorEditScreen}/>
           </Container>
         </main>
       <Footer/>
