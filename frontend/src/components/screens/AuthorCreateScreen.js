@@ -10,8 +10,6 @@ import { AUTHOR_CREATE_RESET, AUTHOR_Create_RESET } from '../../constants/author
 
 const AuthorCreateScreen= ({match, history})=> {
 
-    // const authorId = match.params.id;
-
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -27,18 +25,7 @@ const AuthorCreateScreen= ({match, history})=> {
         if(successCreate){
             dispatch({type:AUTHOR_CREATE_RESET});
             history.push("/admin/authorList")
-        }else{
-            /* if(!author || author._id!== authorId){
-                dispatch(listAuthorDetails(authorId));
-            }else{
-                setName(author.name);
-                setEmail(author.email);
-                setImage(author.profileImage);
-            } */
         }
-        
-        
-        
         
     },[dispatch, history, successCreate]);
     
